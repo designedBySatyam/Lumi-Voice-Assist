@@ -67,6 +67,11 @@ from lumi_windows_api import (
     NEW_ALLOWED_ACTIONS,
     handle_windows_api_intent,
 )
+from lumi_context import (
+    NEW_CONTEXT_ACTIONS,
+    build_context_engine,
+    handle_context_intent,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -183,6 +188,7 @@ ALLOWED_ACTIONS = {
     "tell_joke", "clear_learned", "repeat_last",
 }
 ALLOWED_ACTIONS.update(NEW_ALLOWED_ACTIONS)
+ALLOWED_ACTIONS.update(NEW_CONTEXT_ACTIONS)
 
 
 # ---------------------------------------------------------------------------
@@ -435,6 +441,7 @@ class VoiceAssistant:
         # Build intent rules last (needs self fully initialized)
         self._intent_rules = self._make_rules()
         self._always_on = build_always_on_engine(self)
+        self._context = build_context_engine()
 
     # ------------------------------------------------------------------
     # Internal helpers
@@ -1105,6 +1112,52 @@ class VoiceAssistant:
             # --- Battery (detailed mode) ---
             (c(r"(battery|how much battery|battery status|battery life)", I),
              lambda m, cmd: Intent(action="battery_status")),
+
+            # --- Context: what app am I in ---
+            (c(r"(what app|which app|what (program|window)|where am i|what am i (in|using|looking at))", I),
+             lambda m, cmd: Intent(action="context_what_app")),
+
+            # --- Context: explain selected text ---
+            (c(r"(explain|what does|what is)\s+(this|that|it|the selected|selected text|this code|this text|this error)", I),
+             lambda m, cmd: Intent(action="context_explain")),
+            (c(r"(what does this (mean|do|say))", I),
+             lambda m, cmd: Intent(action="context_explain")),
+
+            # --- Context: fix error ---
+            (c(r"(fix|debug|resolve|solve)\s+(this|the|this error|this bug|this issue)", I),
+             lambda m, cmd: Intent(action="context_fix_error")),
+            (c(r"(why (is|am|does) (this|it) (broken|failing|not working|wrong))", I),
+             lambda m, cmd: Intent(action="context_fix_error")),
+
+            # --- Context: summarise ---
+            (c(r"(summaris|summariz)(e|ing)\s+(this|the)?\s*(page|article|document|text|tab)?", I),
+             lambda m, cmd: Intent(action="context_summarise")),
+            (c(r"(what('?s| is) this (page|article|document|tab) about)", I),
+             lambda m, cmd: Intent(action="context_summarise")),
+            (c(r"(read|tell me about)\s+this\s+(page|article|document|tab)", I),
+             lambda m, cmd: Intent(action="context_summarise")),
+
+            # --- Browser shortcuts ---
+            (c(r"(new tab|open (a )?new tab)", I),
+             lambda m, cmd: Intent(action="browser_new_tab")),
+            (c(r"(close (this )?tab|close tab)", I),
+             lambda m, cmd: Intent(action="browser_close_tab")),
+            (c(r"(go back|previous page|browser back)", I),
+             lambda m, cmd: Intent(action="browser_back")),
+            (c(r"(go forward|next page|browser forward)", I),
+             lambda m, cmd: Intent(action="browser_forward")),
+            (c(r"(bookmark (this|page|this page)|add to bookmarks)", I),
+             lambda m, cmd: Intent(action="browser_bookmark")),
+
+            # --- Editor shortcuts ---
+            (c(r"(save (the )?file|save this)", I),
+             lambda m, cmd: Intent(action="editor_save")),
+            (c(r"(format (the )?code|auto format|prettify)", I),
+             lambda m, cmd: Intent(action="editor_format")),
+            (c(r"(open (the )?terminal|toggle terminal)", I),
+             lambda m, cmd: Intent(action="editor_open_terminal")),
+            (c(r"(clear (the )?terminal|clear screen)", I),
+             lambda m, cmd: Intent(action="terminal_clear")),
 
             # --- Open (catch-all) ---
             (c(r"^(open|go to)\s+(.+)$", I),
@@ -2096,6 +2149,10 @@ class VoiceAssistant:
                 self.speak("Restarting in 5 seconds.")
             return False
 
+        # Phase 3: App context actions
+        if handle_context_intent(self, a, intent, self._context):
+            return False
+
         # Phase 2: Windows API actions
         if handle_windows_api_intent(self, a, intent):
             return False
@@ -2183,6 +2240,7 @@ class VoiceAssistant:
     def stop_background(self) -> None:
         self._stop_event.set()
         self._always_on.stop()
+        self._context.stop()
         self._emit("status", "Stopping...")
 
     def run_cli(self) -> None:

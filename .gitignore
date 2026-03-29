@@ -1,3 +1,28 @@
+# Python cache / bytecode
 __pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
 .venv/
-*.pyc
+venv/
+env/
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Runtime / logs
+*.log
+
+# Editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
