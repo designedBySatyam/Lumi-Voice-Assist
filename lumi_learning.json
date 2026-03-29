@@ -1,0 +1,29 @@
+{
+  "commands": {
+    "play the firt video": {
+      "action": "play_first_video",
+      "target": "",
+      "text": ""
+    },
+    "play first video": {
+      "action": "play_first_video",
+      "target": "",
+      "text": ""
+    },
+    "play the first video": {
+      "action": "play_first_video",
+      "target": "",
+      "text": ""
+    },
+    "scrool down": {
+      "action": "scroll_down",
+      "target": "700",
+      "text": ""
+    },
+    "scrool up": {
+      "action": "scroll_up",
+      "target": "700",
+      "text": ""
+    }
+  }
+}

@@ -1,0 +1,326 @@
+2026-03-24 17:31:37,157 | INFO | Starting AI Voice Assistant...
+2026-03-24 17:31:43,302 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 17:31:47,752 | INFO | Listening...
+2026-03-24 17:31:52,057 | INFO | You said: open my
+2026-03-24 17:31:52,059 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 17:31:52,595 | INFO | Listening...
+2026-03-24 17:31:56,739 | INFO | You said: open youtube
+2026-03-24 17:31:57,061 | INFO | Assistant: Opening https://www.youtube.com
+2026-03-24 17:31:57,600 | INFO | Listening...
+2026-03-24 17:32:15,160 | INFO | Listening...
+2026-03-24 17:32:18,370 | INFO | Listening...
+2026-03-24 17:32:28,739 | INFO | You said: play the first video
+2026-03-24 17:32:28,823 | INFO | Assistant: Opening YouTube results for the first video
+2026-03-24 17:32:29,462 | INFO | Listening...
+2026-03-24 17:32:39,015 | INFO | Listening...
+2026-03-24 17:32:47,459 | INFO | You said: stop lungi
+2026-03-24 17:32:47,461 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 17:32:47,977 | INFO | Listening...
+2026-03-24 17:32:51,815 | INFO | You said: stop lum
+2026-03-24 17:32:51,820 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 17:32:52,372 | INFO | Listening...
+2026-03-24 17:32:56,007 | INFO | Listening...
+2026-03-24 17:33:01,503 | INFO | You said: stop lum
+2026-03-24 17:33:01,506 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 17:33:02,033 | INFO | Listening...
+2026-03-24 17:33:06,227 | INFO | You said: stop assistant
+2026-03-24 17:33:06,230 | INFO | Assistant: Stopping Lumi. Bye.
+2026-03-24 18:01:05,422 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:01:23,275 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:01:37,568 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 18:01:45,634 | INFO | Assistant: Opening https://www.youtube.com
+2026-03-24 18:01:59,522 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 18:02:17,178 | INFO | Assistant: Scrolled down.
+2026-03-24 18:02:29,459 | INFO | Assistant: Screen reading needs OPENAI_API_KEY in your environment.
+2026-03-24 18:06:31,351 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:06:37,253 | INFO | Assistant: Screen reading needs OPENAI_API_KEY in your environment.
+2026-03-24 18:07:39,419 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 18:09:46,982 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:09:57,255 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:10:11,503 | INFO | Assistant: I could not analyze the screen right now.
+2026-03-24 18:10:20,528 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 18:10:35,143 | INFO | Assistant: I could not analyze the screen right now.
+2026-03-24 18:11:11,796 | INFO | Assistant: Opening https://satyam-pandey27.web.app/
+2026-03-24 18:11:50,674 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 18:11:58,260 | INFO | Assistant: Scrolled down.
+2026-03-24 18:12:14,695 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 18:13:03,851 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:13:11,525 | ERROR | Screen analysis failed: PyAutoGUI was unable to import pyscreeze. (This is likely because you're running a version of Python that Pillow (which pyscreeze depends on) doesn't support currently.) Please install this module to enable the function you tried to call.
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 638, in _describe_screen
+    screenshot = pyautogui.screenshot()
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pyautogui\__init__.py", line 228, in _couldNotImportPyScreeze
+    raise PyAutoGUIException(
+        "PyAutoGUI was unable to import pyscreeze. (This is likely because you're running a version of Python that Pillow (which pyscreeze depends on) doesn't support currently.) Please install this module to enable the function you tried to call."
+    )
+pyautogui.PyAutoGUIException: PyAutoGUI was unable to import pyscreeze. (This is likely because you're running a version of Python that Pillow (which pyscreeze depends on) doesn't support currently.) Please install this module to enable the function you tried to call.
+2026-03-24 18:13:11,543 | INFO | Assistant: I could not analyze the screen right now. Please check assistant.log for details.
+2026-03-24 18:15:05,948 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:15:15,644 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:15:19,000 | ERROR | Screen analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 650, in _describe_screen
+    resp = self.client.chat.completions.create(
+        model=self.config.vision_model,
+    ...<13 lines>...
+        ],
+    )
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-24 18:15:19,010 | INFO | Assistant: OpenAI quota or rate limit was hit. Please check billing and limits.
+2026-03-24 18:15:27,253 | ERROR | Screen analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 650, in _describe_screen
+    resp = self.client.chat.completions.create(
+        model=self.config.vision_model,
+    ...<13 lines>...
+        ],
+    )
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-24 18:15:27,255 | INFO | Assistant: OpenAI quota or rate limit was hit. Please check billing and limits.
+2026-03-24 18:20:47,598 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:20:51,916 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:21:03,798 | WARNING | AI intent parse failed (gemini): Gemini API error (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 56.3021076s.
+2026-03-24 18:21:04,567 | ERROR | Screen analysis failed: Gemini API error (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 55.449606581s.
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 453, in _gemini_generate_content
+    with urllib.request.urlopen(req, timeout=45) as resp:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\urllib\request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 769, in _describe_screen
+    text = self._describe_screen_with_gemini(prompt, img64)
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 746, in _describe_screen_with_gemini
+    return self._gemini_generate_content(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model=self.config.gemini_vision_model,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        temperature=0.2,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 466, in _gemini_generate_content
+    raise RuntimeError(f"Gemini API error ({exc.code}): {detail}") from exc
+RuntimeError: Gemini API error (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 55.449606581s.
+2026-03-24 18:21:04,574 | INFO | Assistant: Gemini quota or rate limit was hit. Please check billing and limits.
+2026-03-24 18:55:30,198 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 18:55:30,201 | WARNING | OPENAI_API_KEY is missing in environment.
+2026-03-24 18:55:33,736 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 18:55:38,241 | ERROR | Offline screen analysis failed: C:\Program Files\Tesseract-OCR\tesseract.exe is not installed or it's not in your PATH. See README file for more information.
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 275, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1554, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 810, in _describe_screen
+    self.speak(self._describe_screen_offline(question))
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\assistant.py", line 791, in _describe_screen_offline
+    text_1 = pytesseract.image_to_string(grayscale)
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 486, in image_to_string
+    return {
+           ~
+    ...<2 lines>...
+        Output.STRING: lambda: run_and_get_output(*args),
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    }[output_type]()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 489, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 352, in run_and_get_output
+    run_tesseract(**kwargs)
+    ~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\satya\OneDrive\Desktop\AI Voice Assist\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 280, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: C:\Program Files\Tesseract-OCR\tesseract.exe is not installed or it's not in your PATH. See README file for more information.
+2026-03-24 18:55:38,248 | INFO | Assistant: Offline OCR needs Tesseract. Install it and set TESSERACT_CMD in .env.
+2026-03-24 18:56:02,395 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 18:56:19,199 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:06:01,007 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:06:01,008 | WARNING | OPENAI_API_KEY is missing in environment.
+2026-03-24 19:06:04,934 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 19:06:13,895 | INFO | Assistant: Screen text summary: CODEX © Add voice Perfect. Tes now. Your .env env TESSERAC SCREEN_I Now restar terminal: powershe python + Then test: © read m ttshould n API keys. [fF output Ie page/app | and I cant next. + ey oy o- Lumi Assistant ® assistant py 7 env x Lumi Desktop Voice + Screen Assistant Status Listening... [19:06:01] [19:06:03] [19:06:03] [19:06:04] [19:06:08] [19:06:09] By Quick Start Stop Read Screen Play/Pause System: Lumi UI ready Status: Calibrating microphone... Status: Started Lumi: Lumi is ready. Say help to know commands. UB-Mannheim,.Tesseractocr - Status: Listening... arty packages. You: read my screen 4p-5.4.0.20240606 exe =offline yat the path is correct and try again. : ObjecttotFound: (S
+2026-03-24 19:07:22,512 | INFO | Assistant: Screen text summary: Google Classroom - 2010043231_Object Oriented Programming with UML i = 8 xi@ Constructor vs Method x + _ a ~ X fH 201004...SE.pdf ( | OpenwithGoogle Docs | ~ ) Q& mm: <> 6 chatgpt.com/c/69c275f8-277¢-83a5-ab03-b49712163b09 oe Lumi Assistant _— oO x hatGPT v @ Free offer = ° Lum bi ta Desktop Voice + Screen Assistant = 28 kely d Status Quick Listening... _ sap fey\logs chocolatey. 10g). 5t> Play/Pause lesz ay bt> & "C:\Program Files\Tesseract-OCR\tesseract.exe” Activity ready Status: Calibrating microphone... status: commands. UB-Mannheim, .Tesseractocr - Status: Listening... Ap-5.4.0.20240606 exe =offline yat the path is correct and try again. [19:06:23] Status: Listening. [19:06:27] Status:
+2026-03-24 19:08:05,602 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:08:12,116 | INFO | Assistant: Opening https://www.youtube.com
+2026-03-24 19:08:39,811 | INFO | Assistant: Screen text summary: v Constructor vs Method fi 8 CG 8 youtube.com > YouTube ” Home Shorts Subscriptions > You KO) History = Playlists © Waich later 24 Liked videos v Downloads a Courses Explore & Shopping & Music 3s Movies VV Show more x * YouTube x + All Data Structures Al Résumés. HTML Microsoft Computer Ha MALE TATA ‘ ‘ oe © Grsuurancy ~ ~ SERVICES COMPLETE INI DAY “NO FEES|NOEXAM, FREE CERTIFICATE a B Q sig 7:24 f Ua tf # TATA (FREE) Virtual Internship + Course 2026 | Free Certificate [ No Fees No Exam [ ... career with yogita 20K views - 3 days ago Build $10,000 Al 3 (Google Anti-Gravi Shreyas Raj 81K views - 2 months » Shorts -— oa rho “a . © Lumi Assistant _ Lumi Desktop Voice + Screen Assistant Status Q
+2026-03-24 19:08:45,088 | INFO | Assistant: Screen text summary: v Constructor vs Method CG 8 youtube.com > YouTube ” nr Home B Shorts Subscriptions > You > KO) History = Playlists © Waich later 24 Liked videos v Downloads a Courses Explore & Shopping & Music 3s Movies Vs Show more x * YouTube x + All Data Structures Al Résumés. HTML Microsoft Computer Ha © TATA rs “ ‘CONSULTANCY ~ SERVICES SALE ° . = vy FREE CERTIFICATE B Q . 24 COMPLETE INI DAY Regan I aaele e\ # TATA (FREE) Virtual Internship + Course : Build $10,000 Al 3 2026 | Free Certificate [ No Fees No Exam [ ... &” (Google Anti-Gravi career with yogita Shreyas Raj 20K views - 3 days ago 81K views + 2 month: “NO FEES|NO EXAM. rosé “a ° © Lumi Assistant _ Lumi Desktop Voice + Screen Assistant Stat
+2026-03-24 19:08:49,793 | INFO | Assistant: Opening YouTube results for the first
+2026-03-24 19:09:03,060 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 19:09:16,479 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:09:44,538 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 19:09:50,229 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 19:10:23,228 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:10:23,235 | WARNING | OPENAI_API_KEY is missing in environment.
+2026-03-24 19:10:35,470 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 19:10:41,094 | INFO | Assistant: Screen text summary: ‘oom - | 231_Object Oriented Programming v | Write a program that creates five integer element arra | Calculate and display the average of its value using the | command line argument. | Differentiate between co: tor and method of class. Define | method overloading and its purpose. Write a program to | demonstrate the constructor overloading.
+2026-03-24 19:13:24,164 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 19:42:52,262 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:42:52,263 | WARNING | OPENAI_API_KEY is missing in environment.
+2026-03-24 19:43:29,425 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:43:29,426 | WARNING | OPENAI_API_KEY is missing in environment.
+2026-03-24 19:44:00,453 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:54:38,607 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:54:49,463 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 19:55:00,599 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:55:44,111 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:57:06,412 | INFO | Assistant: Opening https://www.youtube.com
+2026-03-24 19:57:17,778 | INFO | Assistant: Scrolled down.
+2026-03-24 19:57:26,149 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 19:58:18,336 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:58:27,397 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:58:44,437 | INFO | Assistant: You can ask me to open apps, open websites, search, play on YouTube, weather forecast, read screen with cloud or offline OCR, play or pause video on screen, play the first video, scroll up or down, type text, and control volume. I can also learn from corrections like no I meant.
+2026-03-24 19:58:55,087 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:59:01,578 | INFO | Assistant: Volume increased.
+2026-03-24 19:59:06,331 | INFO | Assistant: Volume decreased.
+2026-03-24 19:59:15,483 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:59:21,082 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:59:25,254 | INFO | Assistant: Opening calculator
+2026-03-24 19:59:37,341 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 19:59:37,873 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 19:59:46,511 | INFO | Assistant: Stopping Lumi. Bye.
+2026-03-24 20:00:00,550 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:01:04,017 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:01:39,105 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:02:14,157 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:02:20,026 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 20:02:29,104 | INFO | Assistant: Opening https://www.youtube.com
+2026-03-24 20:02:44,791 | INFO | Assistant: Playing ashish kumar on YouTube.
+2026-03-24 20:03:00,257 | INFO | Assistant: Volume increased.
+2026-03-24 20:03:04,967 | INFO | Assistant: Volume increased.
+2026-03-24 20:03:12,330 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 20:03:32,744 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 20:04:10,596 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 20:04:51,312 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:05:43,208 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:05:50,831 | INFO | Assistant: Lumi is ready. Say help to know commands.
+2026-03-24 20:06:12,716 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 20:06:33,743 | INFO | Assistant: Tried to toggle video playback on screen.
+2026-03-24 20:06:54,259 | INFO | Assistant: Scrolled down.
+2026-03-24 20:07:01,149 | INFO | Assistant: Playing rohit on YouTube.
+2026-03-24 20:07:17,514 | INFO | Assistant: Sorry, I did not understand that command. Say help for options.
+2026-03-24 20:07:31,907 | INFO | Assistant: Screen text summary: v Constructor vs Me’ X ®) YouTube x ® YouTube x + = o | <> G youtube.com &* s | >) YouTube Sea Q GQ +r OF G | All Résumés. Computer programming Live ‘Study Skills Dramedy Motivation > | @ld ceil dHgY Gl gl $ GOOGLE Cloud @ | $ Three.js is About to | 248 views Premium Plus+ tier 4...‘ | Change Web Dev—Cori... | 52K views | Weather
+2026-03-24 20:07:45,235 | INFO | Assistant: Playing rohit on YouTube.
+2026-03-24 20:13:05,776 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:13:20,675 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:14:29,247 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:14:42,278 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-24 20:15:35,546 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-25 18:47:45,742 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-25 20:09:54,957 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-25 20:12:39,442 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-25 20:12:48,884 | INFO | Assistant: Opening https://www.youtube.com.
+2026-03-25 20:12:54,477 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-25 20:13:27,539 | INFO | Assistant: I tried to open the first result on your screen.
+2026-03-25 20:13:51,157 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-25 20:14:08,831 | INFO | Assistant: Screen text summary: >) YouTube | > © % youtube.com | PARR | Home | Shorts | Subscriptions > | You > | tO) History
+2026-03-25 20:14:17,719 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-25 20:14:30,263 | INFO | Assistant: Playing aman jind on YouTube.
+2026-03-25 20:14:44,278 | INFO | Assistant: Stopping Lumi. Bye!
+2026-03-25 20:14:48,196 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-25 20:15:00,693 | INFO | Assistant: Playing songs on spotify on YouTube.
+2026-03-26 14:06:16,806 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-26 14:10:34,850 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-26 14:21:23,835 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-26 14:21:24,103 | ERROR | UI failed: #00000000 is not a valid hex triplet color
+2026-03-26 14:21:27,027 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-26 14:21:35,950 | INFO | Assistant: My name is Lumi.
+2026-03-26 14:21:42,243 | INFO | Assistant: Opening https://www.youtube.com.
+2026-03-26 14:21:55,470 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-26 14:22:05,138 | INFO | Assistant: Scrolled down.
+2026-03-26 14:22:19,012 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-26 14:22:35,943 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-26 15:34:05,723 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-26 15:34:05,969 | ERROR | UI failed: #00000000 is not a valid hex triplet color
+2026-03-26 15:34:09,041 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-26 15:43:47,920 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-26 15:43:48,079 | ERROR | UI failed: #00000000 is not a valid hex triplet color
+2026-03-26 15:43:49,507 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
