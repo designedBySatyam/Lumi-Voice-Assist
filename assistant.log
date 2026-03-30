@@ -335,3 +335,72 @@ pytesseract.pytesseract.TesseractNotFoundError: C:\Program Files\Tesseract-OCR\t
 2026-03-29 19:10:02,439 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
 2026-03-29 19:10:29,138 | INFO | Assistant: Opening notepad.
 2026-03-29 19:10:37,361 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-29 20:15:55,897 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-29 20:15:55,956 | ERROR | UI failed: pywebview is not installed. Run: pip install pywebview
+2026-03-29 20:15:58,621 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-29 20:52:56,484 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-29 20:52:56,973 | ERROR | UI failed: #00000000 is not a valid hex triplet color
+2026-03-29 20:52:58,224 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-29 20:55:09,620 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-29 20:55:30,000 | ERROR | UI event call failed: Main window failed to start
+2026-03-29 20:55:30,001 | ERROR | UI event call failed: Main window failed to start
+2026-03-29 20:55:32,116 | INFO | Assistant: Lumi is ready. Say your wake word or press ctrl+space.
+2026-03-29 20:55:40,913 | INFO | Lumi UI ready.
+2026-03-29 20:57:24,317 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-29 20:57:44,669 | ERROR | UI event call failed: Main window failed to start
+2026-03-29 20:57:44,669 | ERROR | UI event call failed: Main window failed to start
+2026-03-29 20:57:50,065 | INFO | Assistant: Lumi is ready. Say your wake word or press ctrl+space.
+2026-03-29 20:57:54,126 | INFO | Lumi UI ready.
+2026-03-29 22:13:19,755 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-29 22:13:24,515 | INFO | Lumi UI ready.
+2026-03-29 22:13:27,149 | INFO | Assistant: Lumi is ready. Say your wake word or press ctrl+space.
+2026-03-30 13:43:12,792 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-30 13:43:16,479 | INFO | Lumi UI ready.
+2026-03-30 13:43:18,070 | INFO | Assistant: Lumi is ready. Say your wake word or press ctrl+space.
+2026-03-30 13:44:57,085 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-30 13:44:58,366 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-30 13:45:34,730 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:45:43,822 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:45:47,310 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:45:58,050 | INFO | Assistant: Opening https://www.youtube.com.
+2026-03-30 13:46:06,176 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:46:08,757 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:46:14,398 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:46:21,787 | INFO | Assistant: Brightness decreased to 90 percent.
+2026-03-30 13:46:28,790 | INFO | Assistant: Brightness decreased to 80 percent.
+2026-03-30 13:46:34,574 | INFO | Assistant: Volume decreased.
+2026-03-30 13:46:39,830 | INFO | Assistant: Brightness increased to 90 percent.
+2026-03-30 13:46:44,001 | INFO | Assistant: Switched to high performance mode.
+2026-03-30 13:46:50,798 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:46:54,565 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:47:02,895 | INFO | Assistant: Opening https://www.facebook.com.
+2026-03-30 13:47:11,416 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:47:14,197 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:47:21,500 | INFO | Assistant: Scrolled down.
+2026-03-30 13:53:01,310 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-30 13:53:03,461 | INFO | Assistant: Lumi is ready. Say your wake word or press ctrl+space.
+2026-03-30 13:54:07,664 | INFO | Voice selected: Microsoft Zira Desktop - English (United States)
+2026-03-30 13:54:08,923 | INFO | Assistant: Lumi is ready. Say help to know what I can do.
+2026-03-30 13:54:17,173 | INFO | Assistant: My Name may refer to:My Name (band), from South Korea
+My Name 
+My Name 
+My Name 
+"My Name" 
+"My Name", a song from the musical Oliver! "My Name", a song by Xzibit from Man vs. Machine
+"My Name", a song by Anoop Desai from All Is Fair
+My Name , a 2021 South Korean TV series
+2026-03-30 13:54:34,322 | INFO | Assistant: My name is Lumi.
+2026-03-30 13:54:39,137 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:54:48,620 | INFO | Assistant: My name is Lumi.
+2026-03-30 13:55:07,564 | INFO | Assistant: Toggled media playback.
+2026-03-30 13:55:18,457 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 13:55:23,169 | INFO | Assistant: Opening calculator.
+2026-03-30 13:55:29,267 | INFO | Assistant: Added 5 + 4 to your calendar for Tuesday, March 31 at 09:00 AM.
+2026-03-30 13:55:41,437 | INFO | Assistant: Added 5 + 4 on my calculator to your calendar for Tuesday, March 31 at 09:00 AM.
+2026-03-30 14:06:29,489 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 14:06:33,390 | INFO | Assistant: Sorry, I did not understand that. Say help for a list of commands.
+2026-03-30 14:12:33,645 | WARNING | TTS engine unavailable, continuing without spoken audio: [WinError 5] Access is denied: 'C:\\Users\\satya\\AppData\\Roaming\\Python\\Python314\\comtypes_cache'
+2026-03-30 14:12:33,722 | INFO | Assistant: Initialization check complete.
+2026-03-30 14:14:05,276 | WARNING | TTS engine unavailable, continuing without spoken audio: [WinError 5] Access is denied: 'C:\\Users\\satya\\AppData\\Roaming\\Python\\Python314\\comtypes_cache'
+2026-03-30 14:15:58,051 | WARNING | TTS engine unavailable, continuing without spoken audio: [WinError 5] Access is denied: 'C:\\Users\\satya\\AppData\\Roaming\\Python\\Python314\\comtypes_cache'
+2026-03-30 14:18:40,739 | WARNING | TTS engine unavailable, continuing without spoken audio: [WinError 5] Access is denied: 'C:\\Users\\satya\\AppData\\Roaming\\Python\\Python314\\comtypes_cache'

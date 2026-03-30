@@ -2,8 +2,8 @@
 pyttsx3>=2.90
 SpeechRecognition>=3.10.0
 # Audio backend for microphone input:
-# - PyAudio works well where wheels are available.
-# - On Windows + Python 3.14+, use the wheel-backed PyAudioWPatch fallback.
+# - PyAudio works where wheels are available.
+# - On Windows + Python 3.14+, use PyAudioWPatch fallback.
 PyAudio>=0.2.14; python_version < "3.14"
 pyaudiowpatch>=0.2.12.8; python_version >= "3.14" and platform_system == "Windows"
 pyautogui>=0.9.54
@@ -11,13 +11,35 @@ Pillow>=10.4.0
 pyscreeze>=1.0.1
 pytesseract>=0.3.10
 python-dotenv>=1.0.1
+# Optional but recommended: battery, CPU, RAM, disk commands
+psutil>=5.9.0
+# UI (optional on Python 3.14+ due pythonnet build issues)
+pywebview>=4.4.1; python_version < "3.14"
+
+# Phase 1 - Always-on wake word + global hotkey
+pvporcupine
+keyboard
+
 # Phase 2 - Windows API control
 screen-brightness-control
 pywifi
 bleak
 comtypes
 pywin32
-# Optional but recommended: enables battery, CPU, RAM, disk commands
-psutil>=5.9.0
-# Siri-style UI (optional on Python 3.14+ due pythonnet build issues)
-pywebview>=4.4.1; python_version < "3.14"
+
+# Phase 3 - App context
+pywinauto
+pyperclip
+
+# Phase 4 - OS services
+win11toast
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+
+# Phase 5 - Tray service
+pystray
+
+# Eye tracking (optional)
+opencv-python
+mediapipe

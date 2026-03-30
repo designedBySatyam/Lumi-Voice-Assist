@@ -63,6 +63,7 @@ except Exception:
     OpenAI = None
 
 from lumi_always_on import build_always_on_engine
+from lumi_eye_control import EyeControlEngine
 from lumi_windows_api import (
     NEW_ALLOWED_ACTIONS,
     handle_windows_api_intent,
@@ -71,6 +72,11 @@ from lumi_context import (
     NEW_CONTEXT_ACTIONS,
     build_context_engine,
     handle_context_intent,
+)
+from lumi_os_services import (
+    NEW_OS_ACTIONS,
+    ToastService,
+    handle_os_services_intent,
 )
 
 
@@ -173,6 +179,27 @@ JOKES = [
     "I asked my assistant to make me a sandwich. She said 'Sudo make me a sandwich'. Now we're married.",
 ]
 
+
+def _extract_file_type(cmd: str) -> str:
+    """Pull file type keyword from a search command."""
+    type_map = {
+        "pdf": "pdf",
+        "document": "document", "doc": "document", "word": "document",
+        "spreadsheet": "spreadsheet", "excel": "spreadsheet", "csv": "spreadsheet",
+        "image": "image", "photo": "image", "picture": "image",
+        "video": "video", "movie": "video",
+        "audio": "audio", "music": "audio", "song": "audio",
+        "code": "code", "script": "code",
+        "zip": "zip", "archive": "zip",
+        "presentation": "presentation", "powerpoint": "presentation", "slides": "presentation",
+    }
+    cmd_lower = cmd.lower()
+    for kw, ftype in type_map.items():
+        if kw in cmd_lower:
+            return ftype
+    return ""
+
+
 ALLOWED_ACTIONS = {
     "open_app", "open_url", "search_web", "play_youtube", "play_first_video",
     "type_text", "volume_up", "volume_down", "volume_mute", "weather_forecast",
@@ -186,9 +213,13 @@ ALLOWED_ACTIONS = {
     "system_info", "ip_address", "media_next", "media_prev", "media_play_pause",
     "window_minimize", "window_maximize", "window_close", "open_folder",
     "tell_joke", "clear_learned", "repeat_last",
+    "eye_control_start", "eye_control_stop", "eye_control_pause",
+    "eye_control_resume", "eye_control_status",
+    "lumi_mute", "lumi_unmute", "lumi_restart",
 }
 ALLOWED_ACTIONS.update(NEW_ALLOWED_ACTIONS)
 ALLOWED_ACTIONS.update(NEW_CONTEXT_ACTIONS)
+ALLOWED_ACTIONS.update(NEW_OS_ACTIONS)
 
 
 # ---------------------------------------------------------------------------
@@ -398,9 +429,14 @@ class VoiceAssistant:
         self.logger = self._build_logger(config.log_file)
 
         pyautogui.FAILSAFE = True
-        self.engine = pyttsx3.init()
-        self.engine.setProperty("rate", self.config.voice_rate)
-        self._set_voice(self.config.assistant_voice)
+        self.engine = None
+        try:
+            self.engine = pyttsx3.init()
+            self.engine.setProperty("rate", self.config.voice_rate)
+            self._set_voice(self.config.assistant_voice)
+        except Exception as exc:
+            self.engine = None
+            self.logger.warning("TTS engine unavailable, continuing without spoken audio: %s", exc)
 
         self.recognizer = sr.Recognizer()
         self.recognizer.dynamic_energy_threshold = True
@@ -442,6 +478,7 @@ class VoiceAssistant:
         self._intent_rules = self._make_rules()
         self._always_on = build_always_on_engine(self)
         self._context = build_context_engine()
+        self._eye = EyeControlEngine(logger=self.logger)
 
     # ------------------------------------------------------------------
     # Internal helpers
@@ -469,6 +506,8 @@ class VoiceAssistant:
         return logger
 
     def _set_voice(self, preference: str) -> None:
+        if self.engine is None:
+            return
         voices = self.engine.getProperty("voices") or []
         if not voices:
             return
@@ -503,9 +542,15 @@ class VoiceAssistant:
         self._emit("assistant", text)
         self._last_spoken = text
         print(f"{self.config.assistant_name}: {text}")
+        if self.engine is None:
+            return
         with self._speak_lock:
-            self.engine.say(text)
-            self.engine.runAndWait()
+            try:
+                self.engine.say(text)
+                self.engine.runAndWait()
+            except Exception as exc:
+                self.logger.warning("TTS playback failed; disabling voice output: %s", exc)
+                self.engine = None
 
     def _setup_microphone(self) -> bool:
         if self._mic_ready:
@@ -943,8 +988,9 @@ class VoiceAssistant:
 
             # --- Wikipedia / define (catch-all what is) ---
             (c(r"(what is|who is|tell me about|explain|define|what are|who are)\s+(.+)", I),
-             lambda m, cmd: Intent(action="wikipedia_lookup",
-                                   text=(m.group(2) or "").strip())),
+             lambda m, cmd: Intent(action="unknown")
+             if re.match(r"my\s+next\s+(event|meeting|appointment)\b", (m.group(2) or "").strip(), flags=re.I)
+             else Intent(action="wikipedia_lookup", text=(m.group(2) or "").strip())),
 
             # --- Media controls ---
             (c(r"\b(next|skip)\s+track\b", I),
@@ -961,6 +1007,18 @@ class VoiceAssistant:
              lambda m, cmd: Intent(action="window_maximize")),
             (c(r"\b(close|kill)\s+(window|this|app|current|tab)\b", I),
              lambda m, cmd: Intent(action="window_close")),
+
+            # --- Eye control ---
+            (c(r"(enable|start|turn on|activate)\s+(eye|gaze)\s*(tracking|control|mouse|mode)?", I),
+             lambda m, cmd: Intent(action="eye_control_start")),
+            (c(r"(disable|stop|turn off|deactivate)\s+(eye|gaze)\s*(tracking|control|mouse|mode)?", I),
+             lambda m, cmd: Intent(action="eye_control_stop")),
+            (c(r"(pause|hold)\s+(eye|gaze)\s*(tracking|control|mouse|mode)?", I),
+             lambda m, cmd: Intent(action="eye_control_pause")),
+            (c(r"(resume|continue|unpause)\s+(eye|gaze)\s*(tracking|control|mouse|mode)?", I),
+             lambda m, cmd: Intent(action="eye_control_resume")),
+            (c(r"((eye|gaze)\s*(tracking|control)\s*(status|state)|status of (eye|gaze)\s*(tracking|control))", I),
+             lambda m, cmd: Intent(action="eye_control_status")),
 
             # --- Open folders ---
             (c(r"(open|go to|show|navigate to)\s+(my\s+)?(downloads?|desktop|documents?|pictures?|music|videos?|temp)", I),
@@ -1012,7 +1070,7 @@ class VoiceAssistant:
             # --- Power ---
             (c(r"\b(shutdown|power off|turn off (my )?pc)\b", I),
              lambda m, cmd: Intent(action="shutdown")),
-            (c(r"\b(restart|reboot)\b", I),
+            (c(r"\b(restart|reboot)\b(?!\s+(lumi|yourself|the assistant)\b)", I),
              lambda m, cmd: Intent(action="restart")),
 
             # --- Volume ---
@@ -1022,7 +1080,7 @@ class VoiceAssistant:
             (c(r"(volume down|decrease volume|quieter|lower volume)(?:\s+(\d+))?", I),
              lambda m, cmd: Intent(action="volume_down",
                                    target=self._coerce_steps(m.group(2) or "", 1, 30, 5))),
-            (c(r"\bmute\b", I),
+            (c(r"\bmute\b(?!\s+(lumi|yourself)\b)", I),
              lambda m, cmd: Intent(action="volume_mute")),
 
             # --- Type text ---
@@ -1043,7 +1101,7 @@ class VoiceAssistant:
              lambda m, cmd: Intent(action="play_youtube", text=m.group(1).strip())),
 
             # --- Search ---
-            (c(r"^(search|google|find)\s+(.+)$", I),
+            (c(r"^(google|search(?!\s+for))\s+(.+)$", I),
              lambda m, cmd: Intent(action="search_web", text=m.group(2).strip())),
 
             # --- Brightness ---
@@ -1158,6 +1216,39 @@ class VoiceAssistant:
              lambda m, cmd: Intent(action="editor_open_terminal")),
             (c(r"(clear (the )?terminal|clear screen)", I),
              lambda m, cmd: Intent(action="terminal_clear")),
+
+            # --- Tray / service control ---
+            (c(r"^(unmute (lumi|yourself)|start listening again|wake up)$", I),
+             lambda m, cmd: Intent(action="lumi_unmute")),
+            (c(r"^(mute (lumi|yourself)|stop listening|go quiet)$", I),
+             lambda m, cmd: Intent(action="lumi_mute")),
+            (c(r"^restart (lumi|yourself|the assistant)$", I),
+             lambda m, cmd: Intent(action="lumi_restart")),
+
+            # --- File search ---
+            (c(r"^(find|search for|look for|locate|where is)\s+(my\s+)?(.+?)\s*(file|pdf|document|image|video|photo|spreadsheet)?$", I),
+             lambda m, cmd: Intent(
+                 action="file_search",
+                 text=re.sub(r"^(find|search for|look for|locate|where is)\s+(my\s+)?", "", cmd, flags=re.I).strip(),
+                 target=_extract_file_type(cmd),
+             )),
+            (c(r"(open|show)\s+(the\s+)?(file|folder|result)\s+(i just found|from search)", I),
+             lambda m, cmd: Intent(action="file_open")),
+            (c(r"show (me )?(the |its )?folder", I),
+             lambda m, cmd: Intent(action="file_show_folder")),
+
+            # --- Calendar ---
+            (c(r"(what'?s? on my calendar today|today'?s? (events?|schedule|agenda)|what do i have today)", I),
+             lambda m, cmd: Intent(action="calendar_today")),
+            (c(r"(what'?s? on my calendar tomorrow|tomorrow'?s? (events?|schedule|agenda)|what do i have tomorrow)", I),
+             lambda m, cmd: Intent(action="calendar_tomorrow")),
+            (c(r"(what(?:'?s| is) my next (event|meeting|appointment)|when is my next (event|meeting))", I),
+             lambda m, cmd: Intent(action="calendar_next_event")),
+            (c(r"(add|create|schedule|set up)\s+(a\s+)?(meeting|event|appointment|reminder|call)?\s*(.+)", I),
+             lambda m, cmd: Intent(
+                 action="calendar_add",
+                 text=re.sub(r"^(add|create|schedule|set up)\s+(a\s+)?(meeting|event|appointment|reminder|call)?\s*", "", cmd, flags=re.I).strip(),
+             )),
 
             # --- Open (catch-all) ---
             (c(r"^(open|go to)\s+(.+)$", I),
@@ -1688,6 +1779,7 @@ class VoiceAssistant:
             if not self._stop_event.is_set() and not self._cancel_all_timers:
                 msg = f"Timer is done!" if not label else f"Timer for {label} is done!"
                 self.speak(msg)
+                ToastService.timer_done(label)
                 try:
                     import winsound
                     for _ in range(3):
@@ -1914,6 +2006,7 @@ class VoiceAssistant:
             "Open folders like Downloads or Desktop. "
             "Control volume and media playback. "
             "Minimize, maximize, or close windows. "
+            "Control the cursor with eye tracking and blink gestures. "
             "Get your IP address. "
             "Tell jokes and more. "
             "I also learn from corrections. Say no I meant, followed by the right command."
@@ -1927,6 +2020,7 @@ class VoiceAssistant:
         a = intent.action
 
         if a == "exit":
+            self._eye.stop()
             self.speak(f"Stopping {self.config.assistant_name}. Bye!")
             return True
         if a == "tell_name":
@@ -2133,6 +2227,25 @@ class VoiceAssistant:
         if a == "open_folder":
             self._open_folder(intent.target)
             return False
+        if a == "eye_control_start":
+            ok, message = self._eye.start()
+            self.speak(message)
+            return False
+        if a == "eye_control_stop":
+            ok, message = self._eye.stop()
+            self.speak(message)
+            return False
+        if a == "eye_control_pause":
+            ok, message = self._eye.pause()
+            self.speak(message)
+            return False
+        if a == "eye_control_resume":
+            ok, message = self._eye.resume()
+            self.speak(message)
+            return False
+        if a == "eye_control_status":
+            self.speak(self._eye.status_text())
+            return False
 
         if a in {"shutdown", "restart"}:
             if not self.config.allow_power_actions:
@@ -2147,6 +2260,35 @@ class VoiceAssistant:
             else:
                 os.system("shutdown /r /t 5")
                 self.speak("Restarting in 5 seconds.")
+            return False
+
+        # Phase 5: Tray / service actions (handled in-process)
+        if a == "lumi_mute":
+            self.speak("Lumi muted. Say unmute to resume.")
+            self._stop_event.set()
+            return False
+
+        if a == "lumi_unmute":
+            self._stop_event.clear()
+            self.start_background()
+            self.speak("Lumi unmuted.")
+            return False
+
+        if a == "lumi_restart":
+            self.speak("Restarting.")
+            threading.Thread(
+                target=lambda: (
+                    time.sleep(0.5),
+                    self.stop_background(),
+                    time.sleep(0.8),
+                    self.start_background(),
+                ),
+                daemon=True,
+            ).start()
+            return False
+
+        # Phase 4: OS services
+        if handle_os_services_intent(self, a, intent):
             return False
 
         # Phase 3: App context actions
@@ -2213,6 +2355,7 @@ class VoiceAssistant:
             if not command:
                 continue
             self.process_command(command, require_wake_word=True)
+        self._eye.stop()
         self._emit("status", "Stopped")
 
     def _idle_loop(self) -> None:
@@ -2241,6 +2384,7 @@ class VoiceAssistant:
         self._stop_event.set()
         self._always_on.stop()
         self._context.stop()
+        self._eye.stop()
         self._emit("status", "Stopping...")
 
     def run_cli(self) -> None:
@@ -2255,30 +2399,39 @@ class VoiceAssistant:
 # ---------------------------------------------------------------------------
 
 class _LumiJSAPI:
+    __slots__ = ("_assistant", "_ui")
+
     def __init__(self, assistant: "VoiceAssistant", ui: "LumiUI"):
-        self.assistant = assistant
-        self.ui = ui
+        self._assistant = assistant
+        self._ui = ui
 
     def ui_ready(self):
-        self.assistant.logger.info("Lumi UI ready.")
+        self._assistant.logger.info("Lumi UI ready.")
+        self._ui._ui_ready = True
+        if not self._ui._bg_started:
+            self._assistant.start_background()
+            self._ui._bg_started = True
 
     def send_command(self, command: str):
         if not command:
             return
         threading.Thread(
-            target=lambda: self.assistant.process_command(command, require_wake_word=False),
+            target=lambda: self._assistant.process_command(command, require_wake_word=False),
             daemon=True,
         ).start()
 
     def close(self):
-        self.assistant.stop_background()
-        if self.ui.window:
-            self.ui.window.destroy()
+        if self._ui._bg_started:
+            self._assistant.stop_background()
+            self._ui._bg_started = False
+        if self._ui.window:
+            self._ui.window.destroy()
 
     def move_by(self, dx: int, dy: int):
-        if not self.ui.window: return
+        if not self._ui.window:
+            return
         try:
-            self.ui.window.move(self.ui.window.x + int(dx), self.ui.window.y + int(dy))
+            self._ui.window.move(self._ui.window.x + int(dx), self._ui.window.y + int(dy))
         except Exception:
             pass
 
@@ -2468,6 +2621,8 @@ setTimeout(() => setMode('hidden'), 50);
     def __init__(self, assistant: VoiceAssistant):
         self.assistant = assistant
         self.window = None
+        self._ui_ready = False
+        self._bg_started = False
         self._api = _LumiJSAPI(assistant, self)
 
     def _screen_center_bottom(self):
@@ -2482,7 +2637,8 @@ setTimeout(() => setMode('hidden'), 50);
             return None, None
 
     def _event_callback(self, kind: str, text: str):
-        if not self.window: return
+        if not self.window or not self._ui_ready:
+            return
         try:
             self.window.evaluate_js(f"onPythonEvent({json.dumps(kind)}, {json.dumps(text)})")
         except Exception as e:
@@ -2497,7 +2653,7 @@ setTimeout(() => setMode('hidden'), 50);
         self.assistant.event_callback = self._event_callback
         x, y = self._screen_center_bottom()
 
-        self.window = webview.create_window(
+        base_window_kwargs = dict(
             title=self.assistant.config.assistant_name,
             html=self._HTML,
             width=520,
@@ -2508,15 +2664,25 @@ setTimeout(() => setMode('hidden'), 50);
             transparent=True,
             on_top=True,
             js_api=self._api,
-            resizable=True, # Fix for cropping bug
+            resizable=True,  # Fix for cropping bug
             min_size=(400, 68),
-            background_color="#00000000",
         )
-        self.assistant.start_background()
+        # Some pywebview builds only accept #RRGGBB (not #RRGGBBAA).
+        try:
+            self.window = webview.create_window(
+                background_color="#000000",
+                **base_window_kwargs,
+            )
+        except Exception as exc:
+            if "hex triplet color" not in str(exc).lower():
+                raise
+            self.window = webview.create_window(**base_window_kwargs)
         try:
             webview.start(debug=False, private_mode=False)
         finally:
-            self.assistant.stop_background()
+            if self._bg_started:
+                self.assistant.stop_background()
+                self._bg_started = False
 
 # ---------------------------------------------------------------------------
 # Entry point

@@ -17,6 +17,7 @@ Lumi is a local Windows voice assistant with:
 - **Folder shortcuts** — `open downloads`, `open desktop`
 - **Media controls** — `next track`, `previous track`
 - **Window controls** — `minimize window`, `close window`
+- **Eye control** — gaze cursor + blink gestures (`start eye control`)
 - **IP address** — `what is my IP`
 - **Jokes** — `tell me a joke`
 - **Self-learning** from corrections (`no, I meant ...`)
@@ -74,15 +75,24 @@ Important fields:
 
 ## 3. Run
 
-UI mode (default):
+Preferred production mode (system tray + background service):
+
+```powershell
+python lumi_tray.py
+```
+
+Tray mode options:
+
+```powershell
+python lumi_tray.py --no-tray      # headless service mode
+python lumi_tray.py --install      # auto-start at login
+python lumi_tray.py --uninstall    # remove auto-start
+```
+
+Classic direct assistant mode (still supported):
 
 ```powershell
 python assistant.py
-```
-
-Terminal-only mode:
-
-```powershell
 python assistant.py --no-ui
 ```
 
@@ -99,6 +109,11 @@ python assistant.py --no-ui
 - `tell me a joke`
 - `stop lumi` / `exit`
 
+### Tray Service (Phase 5)
+- `mute lumi` / `stop listening`
+- `unmute lumi` / `start listening again`
+- `restart lumi`
+
 ### Web & Apps
 - `open yt` / `open youtube`
 - `open github`
@@ -108,6 +123,15 @@ python assistant.py --no-ui
 - `open chrome` / `open edge`
 - `search python decorators`
 - `google best pizza recipes`
+
+### File Search & Calendar (Phase 4)
+- `find my resume`
+- `search for invoice pdf`
+- `show its folder`
+- `what's on my calendar today`
+- `what do i have tomorrow`
+- `what is my next meeting`
+- `add standup tomorrow at 9am`
 
 ### YouTube & Media
 - `play lo-fi beats on youtube`
@@ -173,6 +197,16 @@ python assistant.py --no-ui
 - `type hello world`
 - `write my name is Satyam`
 
+### Eye Control (optional)
+- `start eye control` / `enable eye tracking`
+- `stop eye control`
+- `pause eye control` / `resume eye control`
+- `eye control status`
+- Gestures while running:
+  - Single blink -> left click
+  - Double blink -> right click
+  - Long blink -> pause/resume
+
 ### Power (disabled by default)
 - `shutdown` (requires `ALLOW_POWER_ACTIONS=1`)
 - `restart`
@@ -197,6 +231,7 @@ python assistant.py --no-ui
 - Self-learning: say `no, I meant ...` after a wrong action and Lumi remembers
 - Video toggle uses `K` key (works on YouTube and many players)
 - Shutdown/restart are protected behind `ALLOW_POWER_ACTIONS=1`
+- Eye control needs webcam + optional packages: `pip install opencv-python mediapipe`
 
 ---
 
